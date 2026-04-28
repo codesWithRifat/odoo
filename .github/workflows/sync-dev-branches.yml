@@ -1,0 +1,38 @@
+name: Sync Dev Branches After Staging Update
+
+on:
+  push:
+    branches:
+      - staging
+
+permissions:
+  contents: write
+
+jobs:
+  sync-dev-branches:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        target_branch:
+          - dev-lamia
+          - dev-humayra
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Merge staging into target branch
+        run: |
+          git fetch origin
+          git checkout ${{ matrix.target_branch }}
+          git merge origin/staging --no-edit
+          git push origin ${{ matrix.target_branch }}
