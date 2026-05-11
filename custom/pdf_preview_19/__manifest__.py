@@ -4,7 +4,7 @@
     "summary": "Preview  PDF reports in Odoo file viewer instead of direct download",
     "depends": ["web"],
     "category": "Customizations",
-    "author": "Softeko_HUMAYRA",
+    "author": "Softeko_Rifat",
     "assets": {
         "web.assets_backend": [
             "pdf_preview_19/static/src/js/pdf_preview.js",
